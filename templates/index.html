@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block body %}
+    <div class="container my-3">
+        <p id="message"></p>
+        <div class="row">
+            <div class="col-md-4 my-2">
+                <h3 class="border border-info p-2 rounded text-center text-info">Add Your Todo</h3>
+                <form id="todoForm">
+                    <input type="hidden" name="uid" id="uid" value="">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Enter your todo title">
+                      </div>
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" rows="4" placeholder="Enter your todo description"></textarea>
+                    </div>
+                    <button type="button" class="btn btn-danger" id="submitBtn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="resetBtn">Reset</button>
+                </form>
+            </div>
+            <div class="col-md-8 my-2">
+                <h3 class="border border-info p-2 rounded text-center text-info">Your Todos</h3>
+                <table class="table table-striped" id="todosTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">S.No.</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody">
+                      {% for todo in todos %}
+                      <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ todo.title }}</td>
+                        <td>{{ todo.description }}</td>
+                        <td>
+                            <button class="edit btn btn-sm btn-success" id="{{ todo.uid }}">Edit</button>
+                            <button class="delete btn btn-sm btn-danger" id="{{ todo.uid }}">Delete</button>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+
+{% block js %}<script src="{% static 'script.js' %}"></script>{% endblock js %}
